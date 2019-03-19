@@ -24,7 +24,8 @@ const syncAndSeed = () => {
             return Promise.all([
                 Product.create({ name: 'foo', price: 3, availability: 'instock' }),
                 Product.create({ name: 'bar', price: 3.75, availability: 'instock'}),
-                Product.create({ name: 'bazz', price: 12.15, availability: 'backordered'})
+                Product.create({ name: 'bazz', price: 12.15, availability: 'backordered'}),
+                Product.create({ name: 'fwoop', price: 7.85, discount: 40, availability: 'discontinued'})
             ])
         })
 }

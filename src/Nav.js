@@ -27,7 +27,7 @@ const Nav = ({ location, counts }) => {
                     return (
                         <li className="nav-item" key={link.path}>
                             <Link to={link.path} className={`nav-link ${link.path === location.pathname ? 'active' : '' }`}>
-                                {link.title}   <span className="badge badge-primary">{counts[`${link.path}`]}</span>
+                                {link.title}    <span className="badge badge-primary">{counts[`${link.path}`]}</span>
                             </Link>
                         </li>
                     )
