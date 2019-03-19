@@ -4,7 +4,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const { Product, syncAndSeed } = require('./db');
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT;
 syncAndSeed();
 
 app.use(bodyParser.json())
@@ -38,4 +38,4 @@ app.delete('/api/products/:id', (req, res, next) => {
 
 
 
-app.listen(port, ()=> console.log(`listening on port ${port}`))
+app.listen(port, () => console.log(`listening on port ${port}`))
