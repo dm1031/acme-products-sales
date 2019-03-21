@@ -2,7 +2,10 @@ const Sequelize = require('sequelize');
 const conn = new Sequelize(process.env.DATABASE_URL);
 
 const Product = conn.define('products', {
-    name: Sequelize.STRING,
+    name: {
+        type: Sequelize.STRING,
+        unique: true
+    },
     price: Sequelize.DECIMAL,
     salePrice: {
         type: Sequelize.DECIMAL,
@@ -13,7 +16,13 @@ const Product = conn.define('products', {
             }
         }
     },
-    discount: Sequelize.INTEGER,
+    discount: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        validate: {
+            max: 100
+        }
+    },
     availability: Sequelize.STRING
 })
 

@@ -13,8 +13,9 @@ export default class Create extends Component {
             ],
             name: '',
             price: '',
-            discount: '',
-            availability: ''
+            discount: undefined,
+            availability: '',
+            error: ''
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -23,25 +24,40 @@ export default class Create extends Component {
         this.setState({ [target.name]: target.value }, () => console.log(this.state))
     }
     handleSubmit(ev) {
+        console.log(ev)
         const hasDiscount = this.state.discount;
         ev.preventDefault()
 
         if (hasDiscount) {
             this.props.onSave(this.state)
                 .then(() => this.props.history.push('/products/sales'))
+                .catch((ex) => {
+                    if (hasDiscount > 100) {
+                        this.setState({ error: `Validation max on discount failed`})
+                    }
+                    else {
+                        this.setState({ error: 'name must be unique'});
+                    }
+                });
         }
         else {
             this.props.onSave(this.state)
                 .then(() => this.props.history.push('/products'))
+                .catch(ex => this.setState({ error: 'name must be unique'}));
         }
     }
     render() {
-    const { fields } = this.state;
+    const { fields, error } = this.state;
     
-    const disabled = this.state.name.length === 0 || this.state.price === '' || this.state.discount === '' || this.state.availability.length === 0;
+    const disabled = this.state.name.length === 0 || this.state.price === '';
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
+                    {
+                        error && (
+                            <li className="alert alert-danger">{ error }</li>
+                        )
+                    }
                         {
                             fields.map( (field) => {
                                 return (

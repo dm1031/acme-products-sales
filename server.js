@@ -4,7 +4,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const { Product, syncAndSeed } = require('./db');
 
-const port = process.env.PORT;
+const port = process.env.PORT || 3000;
 syncAndSeed();
 
 app.use(bodyParser.json())
@@ -34,6 +34,10 @@ app.delete('/api/products/:id', (req, res, next) => {
     .then( () => res.sendStatus(204))
     .catch(next);
 })
+
+app.use((error, req, res, next) => {
+    res.status(error.status || 500).send({ error });
+});
 
 
 

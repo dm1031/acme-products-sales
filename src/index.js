@@ -36,7 +36,6 @@ export default class App extends Component {
     onSave(product) {
         return axios.post('/api/products', product)
             .then(() => this.loadProducts())
-            .catch(er => console.log(er))
     }
     render() {
         const { products, sales } = this.state;
